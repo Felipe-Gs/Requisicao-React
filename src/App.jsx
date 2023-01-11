@@ -15,7 +15,7 @@ function App() {
         <div className="container">
           <Outlet/>
         </div>
-        <h1>React axios</h1>
+        
         
       </div>
   )
