@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect} from "react";
 import blogFecht from "../axios/config";
 import { useParams } from 'react-router-dom';
+import Animations from '../components/Animations';
 
 export const AuthContext = createContext({});
 
@@ -14,12 +15,10 @@ export function AuthContextProvider({ children }){
 
     const getEmails = async(posicao)=>{
         try {
-
+            <Animations load={true}/>
             const response = await blogFecht.get(`/post/${posicao}/comments`)
             const data = response.data;
             setEmails(data)
-
-
         } catch (error) {
             console.log(error)
         }
@@ -29,6 +28,7 @@ export function AuthContextProvider({ children }){
     const [posts, setPosts] = useState([])
     const getPosts = async () => {
         try {
+        <Animations load={true}/>
           const response = await blogFecht.get("/posts/");
     
           const data = response.data;
@@ -40,12 +40,30 @@ export function AuthContextProvider({ children }){
         }
       }
 
+    //   funções para pegar fotos(avatar)
+    const [imgs, setImgs] = useState([])
+    const getImages = async (posicao) => {
+        try {
+            <Animations load={true}/>
+            const response = await blogFecht.get(`/albums/${posicao}/photos`)
+            const data = response.data;
+            setImgs(data)
+            console.log(data)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+   
     
 
     return(
         <AuthContext.Provider value={{
             getEmails,
             getPosts,
+            getImages,
+            imgs,
             posts,
             emails,
             
