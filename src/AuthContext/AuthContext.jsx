@@ -2,6 +2,7 @@ import { createContext, useState, useEffect} from "react";
 import blogFecht from "../axios/config";
 import { useParams } from 'react-router-dom';
 import Animations from '../components/Animations';
+import apigoogle from "../axiosGoogle/config";
 
 export const AuthContext = createContext({});
 
@@ -55,6 +56,8 @@ export function AuthContextProvider({ children }){
         }
     }
 
+// api do github
+    
    
     
 
@@ -63,6 +66,7 @@ export function AuthContextProvider({ children }){
             getEmails,
             getPosts,
             getImages,
+            
             imgs,
             posts,
             emails,

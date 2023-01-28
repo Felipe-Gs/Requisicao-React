@@ -15,8 +15,15 @@ const Navbar = () => {
                 <Link to={'/'}>Home</Link>
             </li>
             <li>
+                <Link to={'/dataGithub'}>Github data</Link>
+            </li>
+            <li>
+                <Link to={'/Login'}>Login</Link>
+            </li>
+            <li>
                 <Link to={'/new'} className='newBtn'>Novo Post</Link>
             </li>
+           
         </ul>
     </nav>
   )

@@ -10,6 +10,9 @@ import Home from './routes/Home';
 import NewPost from './routes/NewPost';
 import Emails from './routes/Emails';
 import { AuthContextProvider } from './AuthContext/AuthContext';
+import DataGithub from './routes/DataGithub';
+import { Login } from './routes/Login';
+import { Cadastro } from './routes/Cadastro';
 
 
 const router = createBrowserRouter([
@@ -27,7 +30,20 @@ const router = createBrowserRouter([
       {
         path: '/emails/:posicao?',
         element: <Emails/>
+      },
+      {
+        path: '/dataGithub',
+        element: <DataGithub/>
+      },
+      {
+        path: '/login',
+        element: <Login/>
+      },
+      {
+        path: '/cadastro',
+        element: <Cadastro/>
       }
+
     ]
   }
 ])
