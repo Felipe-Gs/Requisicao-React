@@ -1,22 +1,37 @@
 import React from 'react'
 import { useState } from 'react'
 import api from '../ApiAxios/axiosRota'
+import { useNavigate } from 'react-router-dom';
 
 export const Cadastro = () => {
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [nome, setNome] = useState('')
     const [id, setId] = useState('')
-
+    const [error, setError] = useState('');
 
     
 
     async function FazerCadastro(e){
         e.preventDefault();
-        const response = await api.post('/cadastro', 
-            JSON.stringify({email, password, nome})
-        )
+        try {
+          const response = await api.post('/cadastro', 
+              JSON.stringify({email, password, nome})
+          );
+          alert('Usuario cadastrado!')
+          navigate('/Login')
+          
+        } catch (error) {
+          if(error.response){
+            setError(error.response.data.message)
+          }else{
+            setError('erro desconhecido')
+
+          }
+        }
+       
         // console.log(response.data)
         // newUser.push(...users, {email, password, nome})
         // users.push(...users, newUser)
@@ -51,9 +66,10 @@ export const Cadastro = () => {
             onChange={(e) => setNome(e.target.value)}
          >
          </input>
-         <button onClick={(e)=> FazerCadastro(e)} type="submit" className='btn-login'>Login</button>
+         <button onClick={(e)=> FazerCadastro(e)} type="submit" className='btn-login'>Cadastrar</button>
          
        </form>
+       {error}
     </div>
   )
 }

@@ -17,13 +17,17 @@ export const Login = () => {
 
     const handleLogin = async(e) => {
         e.preventDefault();
-        const response = await api.post('/login', 
-            JSON.stringify({email, password}),
-        );
-        if(response.data === 200){
-          setError('voce pode logar')
-        }else{
-          setError('Ops, algo deu arrado, Talvez voce nao tenha conta')
+        try {
+          const response = await api.post('/login', 
+              JSON.stringify({email, password}),
+          );
+          navigate('/Home')
+        } catch (error) {
+          if(error.response){
+            setError(error.response.data.message)
+          }else{
+            setError("erro desconhecido!")
+          }
         }
     }
     

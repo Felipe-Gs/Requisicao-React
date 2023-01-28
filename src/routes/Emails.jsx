@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import blogFecht from '../axios/config';
 import {useAuth} from '../../src/hooks/useAuth';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Animations from '../components/Animations';
 import { Avatar } from '@mui/material';
 import './Emails.css';

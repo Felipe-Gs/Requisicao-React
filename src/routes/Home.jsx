@@ -31,7 +31,7 @@ const Home = () => {
             <h2>{post.title}</h2> 
             <p>{post.body}</p> 
             <p>{post.id}</p>
-            <Link to={`emails/${post.id}`}className='btn'>Ler mais</Link>
+            <Link to={`/emails/${post.id}`}className='btn'>Ler mais</Link>
           </div>
         ))
       )}
