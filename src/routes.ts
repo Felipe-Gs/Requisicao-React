@@ -9,6 +9,21 @@ export async function AppRoutes(app: FastifyInstance){
         email: 'contatofelipegomes.dev@gmail.com',
         password: '12345',
     }];
+    
+    app.get('/verItens', (req, res)=>{
+        try {
+            return users
+        } catch (err: any) {
+            if(err.name === 'ZodError'){
+                return res.status(400).send({
+                    message: 'Ops, ouve algum problema com o servidor!'
+                });
+            }
+            return res.status(500).send({
+                message: 'Erro interno no servidor'
+            })
+        }
+    })
 
     app.post('/login', (req, res) => {
         try {
