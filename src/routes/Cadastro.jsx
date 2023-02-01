@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import api from "../ApiAxios/axiosRota";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export const Cadastro = () => {
@@ -20,7 +21,7 @@ export const Cadastro = () => {
         JSON.stringify({ email, password, nome })
       );
       alert("Usuario cadastrado!");
-      navigate("/Login");
+      navigate(`/Login`);
     } catch (error) {
       if (error.response) {
         setError(error.response.data.message);
@@ -28,11 +29,6 @@ export const Cadastro = () => {
         setError("erro desconhecido");
       }
     }
-
-    // console.log(response.data)
-    // newUser.push(...users, {email, password, nome})
-    // users.push(...users, newUser)
-    // console.log(users)
   }
 
   return (
