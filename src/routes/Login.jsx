@@ -32,6 +32,20 @@ export const Login = () => {
     }
   };
 
+  const handleVerification = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api.get("/verItens");
+      setUser(response.data);
+    } catch (error) {
+      if (error.response) {
+        setEmail(error.response.data.message);
+      } else {
+        setEmail("erro desconhecido!");
+      }
+    }
+  };
+
   return (
     <div
       style={{
@@ -42,6 +56,10 @@ export const Login = () => {
       }}
     >
       <h1>Autenticação de Login</h1>
+      <button onClick={handleVerification} type="button">
+        Verificar logins
+      </button>
+      {user ? user.map((item, index) => <p key={index}>{item.email}</p>) : ""}
       <form className="login-form">
         <input
           type={"email"}
