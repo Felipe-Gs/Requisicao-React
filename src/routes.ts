@@ -87,4 +87,26 @@ export async function AppRoutes(app: FastifyInstance){
             })
         }
     })
+
+    app.delete('/deletar', (req, res)=>  {
+        try {
+            const usersBody= Z.object({
+                email: Z.string().email(),
+                password: Z.string()
+            }).required()
+            const validData = usersBody.parse(req.body)
+            const {email, password} = validData
+            const user = users.filter(item => item.email !== email && item.password !== password)
+            return user
+        } catch (error : any) {
+            if(error.name === 'ZodErrro'){
+                return res.status(400).send({
+                    message: 'Dados invalidos'
+                })
+            }
+            return res.status(500).send({
+                message: 'Erro interno no servidor'
+            })
+        }
+    })
 }
