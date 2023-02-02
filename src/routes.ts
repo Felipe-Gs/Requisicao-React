@@ -4,7 +4,7 @@ import * as Z from "zod";
 
 
 export async function AppRoutes(app: FastifyInstance){
-    const users =[{
+    let users =[{
         nome: 'Felipe Gomes',
         email: 'contatofelipegomes.dev@gmail.com',
         password: '12345',
@@ -88,16 +88,30 @@ export async function AppRoutes(app: FastifyInstance){
         }
     })
 
-    app.delete('/deletar', (req, res)=>  {
+    app.post('/deletar', (req, res)=>  {
         try {
             const usersBody= Z.object({
                 email: Z.string().email(),
-                password: Z.string()
-            }).required()
+                password: Z.string().min(3)
+            }).required();
             const validData = usersBody.parse(req.body)
             const {email, password} = validData
-            const user = users.filter(item => item.email !== email && item.password !== password)
-            return user
+            const user = users.filter(user => user.email !== email || user.password !== password)
+            if(user){
+                users = user
+                return res.status(200).send({
+                    message: 'Usuario deletado com sucesso'
+                })
+            }else if(users.length === 0){
+                return res.status(404).send({
+                    message : 'Nao tem nunhum usuario cadastrado! seja o primeiro!'
+                })
+            }
+            else{
+                return res.status(401).send({
+                    message: 'erro desconhecido!'
+                })
+            }
         } catch (error : any) {
             if(error.name === 'ZodErrro'){
                 return res.status(400).send({
