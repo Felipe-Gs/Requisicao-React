@@ -101,3 +101,8 @@ input {
 .input[type="email"]:focus {
   border-color: #3ca9e2;
 }
+
+.btn-deletar {
+  display: flex;
+  gap: 0.5em;
+}
