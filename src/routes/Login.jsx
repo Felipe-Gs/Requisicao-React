@@ -39,9 +39,26 @@ export const Login = () => {
       setUser(response.data);
     } catch (error) {
       if (error.response) {
-        setEmail(error.response.data.message);
+        setError(error.response.data.message);
       } else {
-        setEmail("erro desconhecido!");
+        setError("erro desconhecido!");
+      }
+    }
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api.post(
+        "/deletar",
+        JSON.stringify({ email, password })
+      );
+      alert(response.data.message);
+    } catch (error) {
+      if (error.response) {
+        setError(error.response.data.message);
+      } else {
+        setError("erro desconhecido");
       }
     }
   };
@@ -82,13 +99,24 @@ export const Login = () => {
           required
           onChange={(e) => setNome(e.target.value)}
         ></input>
-        <button
-          onClick={(e) => handleLogin(e)}
-          type="submit"
-          className="btn-login"
-        >
-          Login
-        </button>
+        <div className="btn-deletar">
+          <button
+            onClick={(e) => handleLogin(e)}
+            type="submit"
+            className="btn-login"
+          >
+            Login
+          </button>
+
+          <button
+            onClick={(e) => handleDelete(e)}
+            type="submit"
+            className="btn-login"
+          >
+            Deletar
+          </button>
+        </div>
+
         {error ? (
           <button
             onClick={() => navigate("/cadastro")}
